@@ -1,9 +1,10 @@
-// its make a favourites meal array if its not exist in local storage
+// it makes a array if it does not exist in local storage
+// this array will be used to store favorite list
 if (localStorage.getItem("favouritesList") == null) {
     localStorage.setItem("favouritesList", JSON.stringify([]));
 }
 
-// its fetch meals from api and return it
+// its fetch meals from the api and returns it
 async function fetchMealsFromApi(url,value) {
     const response=await fetch(`${url+value}`);
     const meals=await response.json();
@@ -13,7 +14,9 @@ async function fetchMealsFromApi(url,value) {
 
 
 // its show's all meals card in main acording to search input value
-function showMealList(){
+//this function is called from index.html evertime the 'keyup' event happens
+//thats how we get updated results for every key press
+function showListOfMeals(){
     let inputValue = document.getElementById("my-search").value;
     let arr=JSON.parse(localStorage.getItem("favouritesList"));
     let url="https://www.themealdb.com/api/json/v1/1/search.php?s=";
@@ -28,6 +31,7 @@ function showMealList(){
                         isFav=true;
                     }
                 }
+                //if meal is in the favorite list this will be card below will be code for that
                 if (isFav) {
                     html += `
                 <div id="card" class="card card-1 mb-3 " style="width: 20rem; background: linear-gradient(135deg, red, rgba(255, 255, 255, 0));">
@@ -42,6 +46,7 @@ function showMealList(){
                     </div>
                 </div>
                 `;
+                //else ,if it's not in favorite list then below will be code for that 
                 } else {
                     html += `
                 <div id="card" class="card mb-3" style="width: 20rem; ">
@@ -60,7 +65,11 @@ function showMealList(){
                
                 
             });
+
+
         } else {
+            //This will be code if the searched input is not found in mealDB Api
+            //and below image will be displayed
             html += `
             <div class="page-wrap d-flex flex-row align-items-center">
                 <div class="container">
@@ -79,11 +88,12 @@ function showMealList(){
 
 
 
-//its shows full meal details in main
+//its shows full meal details after clicking on details button
 async function showMealDetails(id) {
     let url="https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
     let html="";
     await fetchMealsFromApi(url,id).then(data=>{
+
         html += `
           <div id="meal-details" class="mb-5">
           <a class="bg-danger btn float-right" href="./index.html" style="font-weight:bolder">X</a>
@@ -118,7 +128,10 @@ async function showFavMealList() {
     let arr=JSON.parse(localStorage.getItem("favouritesList"));
     let url="https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
     let html="";
+    
     if (arr.length==0) {
+        //when favorite list is empty (i.e. arr.length == 0)
+        //it will load the coad below
         html += `
             <div class="page-wrap d-flex flex-row align-items-center">
                 <div class="container">
@@ -127,6 +140,7 @@ async function showFavMealList() {
             </div>
             `;
     } else {
+        //else it will display the data of the meal that was added to favorites
         for (let index = 0; index < arr.length; index++) {
             await fetchMealsFromApi(url,arr[index]).then(data=>{
                 html += `
@@ -152,7 +166,7 @@ async function showFavMealList() {
 
 
 
-//its adds and remove meals to favourites list
+//its adds and remove meals from & to favourites list
 function addRemoveToFavList(id) {
     let arr=JSON.parse(localStorage.getItem("favouritesList"));
     let contain=false;
@@ -170,7 +184,7 @@ function addRemoveToFavList(id) {
     
     }
     localStorage.setItem("favouritesList",JSON.stringify(arr));
-    showMealList();
+    showListOfMeals();
     showFavMealList();
 }
 
