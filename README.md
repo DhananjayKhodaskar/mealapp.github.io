@@ -60,7 +60,7 @@ Just download the zip and run LIVE_SERVER.
     button, clicking on which removes that meal from the list.
    
 ## 🚦Version
-1.0 - Added Local Storage to the base Project
+1.0 - Added Local Storage to the Base Project
 ## 👦Contact
 🔗 Author - @Dhananjay Khodaskar 
 
