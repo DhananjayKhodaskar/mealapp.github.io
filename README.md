@@ -13,7 +13,7 @@ https://dhananjaykhodaskar.github.io/mealapp.github.io/
 ## 📐Installation
 Just download the zip and run LIVE_SERVER.
 ## 🪛Built With
-🟠 HTML 🟠 Pure CSS 🟠 Vanilla Javascript
+🟠 HTML 🟠 CSS 🟠 Vanilla Javascript
 ## 🖼️Screenshots
 🔴 Landing Page
 
